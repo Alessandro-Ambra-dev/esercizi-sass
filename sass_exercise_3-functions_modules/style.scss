@@ -1,0 +1,48 @@
+
+@function rem($number){
+    $rem: calc($number/16) + rem;
+    @return $rem;
+}
+
+
+
+@mixin article-style($color, $border-color:green, $font-size: rem(16)){
+    color: $color;
+    border: rem(1) solid $border-color;
+    font-size: $font-size;
+    padding: rem(10);
+
+}
+
+div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: rem(1) solid red;
+    h1{
+        border-bottom: rem(1) solid blue;
+        color: green;
+    }
+    section{
+        margin: rem(0) rem(15);
+        display: flex;
+        align-items: center;
+        article:nth-child(odd){
+            @include article-style(blue)
+        }
+        article:nth-child(even){
+            @include article-style(red)
+        }
+    }
+    section:last-child{
+        width: 100%;
+        margin: rem(15);
+        article{
+            margin: rem(0) rem(15);
+            text-align: center;
+            width: 100%;
+            @include article-style(green, blue, rem(24))
+        }
+    }
+}
