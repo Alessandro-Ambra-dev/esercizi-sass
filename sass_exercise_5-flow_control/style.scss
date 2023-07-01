@@ -1,0 +1,92 @@
+@use "sass:color";
+
+$font-sizes: 1rem, 2rem, 3rem;
+
+@each $font-size in $font-sizes{
+    .fs-#{$font-size}{
+        font-size: $font-size;
+    }
+}
+
+@for $index from 1 through 20{
+    section:nth-of-type(2)div:nth-child(#{$index}){
+        background-color: darken($color: #FFFFFF, $amount: calc($index * 5));
+        color: lighten($color: #000000, $amount: calc($index * 5));
+    }
+    @if $index == 10{
+        section:nth-of-type(2)div:nth-child(#{$index}){
+            background-color: blue;
+            color: red;
+        }
+    }
+}
+
+
+
+@function rem($number){
+    $rem: calc($number/16) +rem;
+    @return $rem;
+}
+
+%text{
+    color: green;
+}
+
+
+@mixin article-style($color, $border-color: green, $font-size: rem(16)){
+    color: $color;
+    border: rem(1) solid $border-color;
+    font-size: $font-size;
+    padding: rem(10);
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: rem(1) solid red;
+    & h1{
+        padding-top: rem(25);
+        @extend %text;
+        border-bottom: rem(1) solid blue;
+    }
+    & h2{
+        @extend %text;
+        border: rem(1) solid red;
+        padding: rem(16);
+    }
+    & section{
+        margin: rem(0) rem(15);
+        display: flex;
+        align-items: center;
+        & article:nth-child(odd){
+            @include article-style(blue)
+        }
+        & article:nth-child(even){
+            @include article-style(red)
+        }
+        
+    }
+    & section:last-child{
+        width: 100%;
+        margin: rem(15);
+        & article{
+            width: 100%;
+            text-align: center;
+            margin: rem(0) rem(15);
+            @include article-style(green,blue, rem(24))
+        }
+    }
+    & section:nth-of-type(2){
+        margin: rem(15);
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        & div{
+            height:rem(45);
+            width: rem(45);
+            border: rem(1) solid red;
+        }
+    }
+}
